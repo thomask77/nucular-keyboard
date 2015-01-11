@@ -1,0 +1,10 @@
+*~
+*.bak
+*.tmp
+.project
+.cproject
+.settings
+.pydevproject
+obj_app
+obj_boot
+Trash
