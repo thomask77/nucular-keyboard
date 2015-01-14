@@ -1,14 +1,29 @@
 /**
- * Serial PS/2 host controller
+ * Nucular Keyboard - PS/2 host controller functions
+ * Copyright (C)2015 Thomas Kindler <mail_nucular@t-kindler.de>
  *
- * see http://www.computer-engineering.org/ps2protocol/
- * see https://github.com/tmk/tmk_keyboard
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
- * TODO: receive/send buffer
- * TODO: inhibit on overflow
- * TODO: handle time outs
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
  *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
+/*
+     see http://www.computer-engineering.org/ps2protocol/
+     see https://github.com/tmk/tmk_keyboard
+     TODO: receive/send buffer
+     TODO: inhibit on overflow
+     TODO: handle time outs
+*/
+
 #include "ps2_host.h"
 #include "ustime.h"
 #include "stm32l0xx_hal.h"
