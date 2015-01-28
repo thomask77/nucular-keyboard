@@ -19,8 +19,8 @@
 #include "usbd_desc.h"
 #include "usbd_conf.h"
 
-#define USBD_VID                    0x1D50
-#define USBD_PID                    0xFF06
+#define USBD_VID                    0x1D50      // openmoko.org
+#define USBD_PID                    0x60c0      // nucular-keyboard
 #define USBD_LANGID_STRING          1033
 #define USBD_MFC_STRING             "t-kindler.de"
 #define USBD_PRODUCT_STRING         "Nucular Keyboard"
