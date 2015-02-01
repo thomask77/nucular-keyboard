@@ -175,7 +175,32 @@ void kb_set_brightness(uint8_t level)
     TIM22->CCR1 = pwm;  // PA6    LED_NUM
     TIM22->CCR2 = pwm;  // PA7    LED_SCROLL
     TIM2->CCR3  = pwm;  // PB10   LED_AUX
+}
+
+
+void kb_set_thinklight(uint8_t level)
+{
+    int pwm = gamma_tab[level];
     TIM2->CCR4  = pwm;  // PB11   LED_LIGHT
+}
+
+
+void kb_set_leds(const struct kb_out_report *report)
+{
+    if (report->_01_num_lock)
+        TIM22->CCER |= TIM_CCER_CC1E;
+    else
+        TIM22->CCER &= ~TIM_CCER_CC1E;
+
+    if (report->_02_caps_lock)
+        TIM21->CCER |= TIM_CCER_CC2E;
+    else
+        TIM21->CCER &= ~TIM_CCER_CC2E;
+
+    if (report->_03_scroll_lock)
+        TIM22->CCER |= TIM_CCER_CC2E;
+    else
+        TIM22->CCER &= ~TIM_CCER_CC2E;
 }
 
 

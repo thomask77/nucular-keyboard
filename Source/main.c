@@ -140,7 +140,7 @@ void handle_out_requests(void)
     switch (hhid->ep0_out_req.wIndex) {
     case 0:
         if (report_type == 2 && report_id == 0)
-            kb_set_led_report((struct kb_out_report *)hhid->ep0_out_buf);
+            kb_set_leds((struct kb_out_report *)hhid->ep0_out_buf);
         break;
 
     case 2:

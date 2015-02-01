@@ -24,19 +24,15 @@
 
 #define T_POWER_DELAY   2000    // 2s
 
-static uint32_t power_t0;
-
-static uint8_t  matrix_old[16];
-static uint8_t  fn_state[16];
-
-
 // HID reports
 //
 struct kb_in_report         kb_in_report;
 struct kb_sysctrl_report    kb_sysctrl_report;
 struct kb_consumer_report   kb_consumer_report;
+static struct kb_misc_keys  kb_misc_keys;
 
 static int kb_in_report_num_keys;
+
 
 // TODO
 //                                                  Implemented     Tested
@@ -57,10 +53,12 @@ static int kb_in_report_num_keys;
 // Webcam/Headphones    5/5     (F6)
 // Screen/Projector     6/3     (F7)
 // Mouse/Trackpoint     6/0     (F8)
-// Suspend to Disk      9/1     (F12)               x               y (>= Win 8.1 ?)
-// Brightness Up        12/0    (Home)              x               y (>= Win 8.1)
-// Brightness Down      12/1    (End)               x               y (>= Win 8.1)
-// Thinklight           11/0    (Page up)
+// Suspend to Disk      9/1     (F12)               x               x (>= Win 8.1 ?)
+// Brightness Up        12/0    (Home)              x               x (>= Win 8.1)
+// Brightness Down      12/1    (End)               x               x (>= Win 8.1)
+// Thinklight           11/0    (Page up)           x               x
+// Thinklight           11/1    (Page down)         x               x
+
 // Zoom                 8/7     (Space)
 // Stop                 12/5    (Cursor Up)         x               x
 // Play/Pause           10/7    (Cursor Down)       x               x
@@ -96,23 +94,23 @@ static const uint32_t usage_tab[16][8] = {
 
 
 static const uint32_t usage_tab_fn[16][8] = {
-/*          0         1         2         3         4         5         6         7       */
-/*  0 */  { 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000 },
-/*  1 */  { 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000 },
-/*  2 */  { 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x010082, 0x000000, 0x000000 },
-/*  3 */  { 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000 },
-/*  4 */  { 0x000000, 0x07005f, 0x07005c, 0x000000, 0x070059, 0x000000, 0x070062, 0x000000 },
-/*  5 */  { 0x000000, 0x070060, 0x07005d, 0x000000, 0x07005a, 0x000000, 0x000000, 0x000000 },
-/*  6 */  { 0x000000, 0x070061, 0x07005e, 0x000000, 0x07005b, 0x000000, 0x070063, 0x000000 },
-/*  7 */  { 0x000000, 0x070054, 0x070055, 0x000000, 0x070056, 0x000000, 0x000000, 0x070057 },
-/*  8 */  { 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x070058, 0x000000 },
-/*  9 */  { 0x000000, 0x0100A8, 0x000000, 0x0700e7, 0x000000, 0x000000, 0x000000, 0x0c00b5 },
-/* 10 */  { 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x0c00cd },
-/* 11 */  { 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000 },
-/* 12 */  { 0x0c006f, 0x0c0070, 0x000000, 0x000000, 0x000000, 0x0c00b7, 0x000000, 0x0c00b6 },
-/* 13 */  { 0x000000, 0x000000, 0x070053, 0x000000, 0x000000, 0x0700e2, 0x000000, 0x0700e6 },
-/* 14 */  { 0x000000, 0x000000, 0x000000, 0x0700e1, 0x000000, 0x000000, 0x0700e5, 0x000000 },
-/* 15 */  { 0x0700e0, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x0700e4, 0x000000 }
+/*            0           1         2         3         4         5         6         7       */
+/*  0 */  {   0x000000,   0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000 },
+/*  1 */  {   0x000000,   0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000 },
+/*  2 */  {   0x000000,   0x000000, 0x000000, 0x000000, 0x000000, 0x010082, 0x000000, 0x000000 },
+/*  3 */  {   0x000000,   0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000 },
+/*  4 */  {   0x000000,   0x07005f, 0x07005c, 0x000000, 0x070059, 0x000000, 0x070062, 0x000000 },
+/*  5 */  {   0x000000,   0x070060, 0x07005d, 0x000000, 0x07005a, 0x000000, 0x000000, 0x000000 },
+/*  6 */  {   0x000000,   0x070061, 0x07005e, 0x000000, 0x07005b, 0x000000, 0x070063, 0x000000 },
+/*  7 */  {   0x000000,   0x070054, 0x070055, 0x000000, 0x070056, 0x000000, 0x000000, 0x070057 },
+/*  8 */  {   0x000000,   0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x070058, 0x000000 },
+/*  9 */  {   0x000000,   0x0100A8, 0x000000, 0x0700e7, 0x000000, 0x000000, 0x000000, 0x0c00b5 },
+/* 10 */  {   0x000000,   0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x0c00cd },
+/* 11 */  { 0xff000001, 0xff000002, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000 },
+/* 12 */  {   0x0c006f,   0x0c0070, 0x000000, 0x000000, 0x000000, 0x0c00b7, 0x000000, 0x0c00b6 },
+/* 13 */  {   0x000000,   0x000000, 0x070053, 0x000000, 0x000000, 0x0700e2, 0x000000, 0x0700e6 },
+/* 14 */  {   0x000000,   0x000000, 0x000000, 0x0700e1, 0x000000, 0x000000, 0x0700e5, 0x000000 },
+/* 15 */  {   0x0700e0,   0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x0700e4, 0x000000 }
 };
 
 
@@ -194,6 +192,15 @@ static void key_down(uint32_t usage)
         default: goto unknown_usage;
         }
         break;
+
+    case 0xFF00:
+        // Usage Page 0xFF00 Vendor-defined
+        //
+        switch (usage_id) {
+        case 0x0001: kb_misc_keys._01_thinklight_up = 1;     break;
+        case 0x0002: kb_misc_keys._02_thinklight_down = 1;   break;
+        default: goto unknown_usage;
+        }
     }
     return;
 
@@ -225,6 +232,7 @@ static void clear_reports(void)
     memset(&kb_sysctrl_report,  0, sizeof(kb_sysctrl_report));
     memset(&kb_consumer_report, 0, sizeof(kb_consumer_report));
     memset(&kb_in_report,       0, sizeof(kb_in_report));
+    memset(&kb_misc_keys,       0, sizeof(kb_misc_keys));
 
     kb_sysctrl_report.report_id_01 = 1;
     kb_consumer_report.report_id_02 = 2;
@@ -232,29 +240,11 @@ static void clear_reports(void)
 }
 
 
-void kb_set_led_report(const struct kb_out_report *report)
+static void kb_update_reports(void)
 {
-    // TODO: Move to kb_driver
-    //
-    if (report->_01_num_lock)
-        TIM22->CCER |= TIM_CCER_CC1E;
-    else
-        TIM22->CCER &= ~TIM_CCER_CC1E;
+    static uint8_t  matrix_old[16];
+    static uint8_t  fn_state[16];
 
-    if (report->_02_caps_lock)
-        TIM21->CCER |= TIM_CCER_CC2E;
-    else
-        TIM21->CCER &= ~TIM_CCER_CC2E;
-
-    if (report->_03_scroll_lock)
-        TIM22->CCER |= TIM_CCER_CC2E;
-    else
-        TIM22->CCER &= ~TIM_CCER_CC2E;
-}
-
-
-void kb_update(void)
-{
     uint8_t matrix[16];
 
     if (!kb_scan_matrix(matrix)) {
@@ -295,6 +285,12 @@ void kb_update(void)
             }
         }
     }
+}
+
+
+static void kb_update_power(void)
+{
+    static uint32_t power_t0;
 
     if (kb_get_power_key()) {
 
@@ -313,5 +309,43 @@ void kb_update(void)
     else {
         power_t0 = 0;
     }
+}
+
+
+static void kb_update_thinklight(void)
+{
+    static int      level;
+    static struct   kb_misc_keys  old_keys;
+    static uint32_t t_last;
+
+    uint32_t t = HAL_GetTick();
+    int repeat = t - t_last > 150;
+
+    if (kb_misc_keys._01_thinklight_up) {
+        if (!old_keys._01_thinklight_up || repeat) {
+            if (level < 4)
+                level++;
+            t_last = t;
+        }
+    }
+
+    if (kb_misc_keys._02_thinklight_down) {
+        if (!old_keys._02_thinklight_down || repeat) {
+            if (level > 0)
+                level--;
+            t_last = t;
+        }
+    }
+
+    old_keys = kb_misc_keys;
+    kb_set_thinklight((255 * level) / 4);
+}
+
+
+void kb_update(void)
+{
+    kb_update_reports();
+    kb_update_power();
+    kb_update_thinklight();
 }
 

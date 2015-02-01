@@ -79,11 +79,19 @@ struct kb_consumer_report {
 };
 
 
+struct kb_misc_keys {
+    // Usage Page 0xFF00 Vendor-defined
+    //
+    unsigned    _01_thinklight_up   : 1;
+    unsigned    _02_thinklight_down : 1;
+};
+
+
 extern struct  kb_in_report         kb_in_report;
 
 extern struct  kb_sysctrl_report    kb_sysctrl_report;
 extern struct  kb_consumer_report   kb_consumer_report;
 
-void kb_set_led_report(const struct kb_out_report *report);
+void kb_set_leds(const struct kb_out_report *report);
 
 void kb_update(void);
