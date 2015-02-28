@@ -319,11 +319,11 @@ static void kb_update_thinklight(void)
     static uint32_t t_last;
 
     uint32_t t = HAL_GetTick();
-    int repeat = t - t_last > 150;
+    int repeat = t - t_last > 1;
 
     if (kb_misc_keys._01_thinklight_up) {
         if (!old_keys._01_thinklight_up || repeat) {
-            if (level < 4)
+            if (level < 255)
                 level++;
             t_last = t;
         }
@@ -338,7 +338,7 @@ static void kb_update_thinklight(void)
     }
 
     old_keys = kb_misc_keys;
-    kb_set_thinklight((255 * level) / 4);
+    kb_set_thinklight(level);
 }
 
 
