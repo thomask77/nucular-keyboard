@@ -413,9 +413,9 @@
       (net 65 /VBUS))
     (pad 1 smd rect (at -1.48 -1.5) (size 1 1.5) (layers F.Cu F.Paste F.Mask)
       (net 2 GND))
-    (model ${KISYS3DMOD}/TO_SOT_Packages_SMD.3dshapes/SOT89-3_Housing.wrl
-      (at (xyz 0.02 0 0))
-      (scale (xyz 0.39 0.39 0.39))
+    (model ${KIPRJMOD}/SOT89-3_Housing.wrl
+      (at (xyz 0.02362204724409449 0 0))
+      (scale (xyz 0.3937 0.3937 0.3937))
       (rotate (xyz 0 0 90))
     )
   )
@@ -486,9 +486,9 @@
       (net 2 GND))
     (pad 6 smd rect (at 1 0.35 270) (size 1.5 1.9) (layers F.Cu F.Paste F.Mask)
       (net 2 GND))
-    (model ${KISYS3DMOD}/Connectors_USB.3dshapes/USB_Micro-B_Molex-105017-0001.wrl
-      (at (xyz 0 -0.004921259842519685 0.04724409448818898))
-      (scale (xyz 0.39 0.39 0.39))
+    (model ${KIPRJMOD}/Molex_105017-0001_USB-Micro-B.wrl
+      (at (xyz 0 -0.005905511811023622 0.0484251968503937))
+      (scale (xyz 0.3937 0.3937 0.3937))
       (rotate (xyz -90 0 0))
     )
   )
