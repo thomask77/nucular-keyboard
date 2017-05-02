@@ -1,0 +1,23 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP JAE_AA01B-S040VA1
+D Board to board receptacle, 0.5mm pitch, SMT, parallel
+$ENDCMP
+#
+$CMP JAE_KX14-40K2D
+D Board to board receptacle, 0.8mm pitch, SMT, parallel
+F https://www.jae.com/z-en/pdf_download_exec.cfm?param=MB-0315-1E_KX14_15.pdf
+$ENDCMP
+#
+$CMP Microchip_MCP1700T-3302E/MB
+D 250mA Low Quiscent Current LDO, 3.3V output, SOT-89 package
+K regulator linear ldo
+F http://ww1.microchip.com/downloads/en/DeviceDoc/20001826C.pdf
+$ENDCMP
+#
+$CMP Nexperia_PRTR5V0U2X
+D Ultra low capacitance double rail-to-rail ESD protection diode
+F http://assets.nexperia.com/documents/data-sheet/PRTR5V0U2X.pdf
+$ENDCMP
+#
+#End Doc Library
