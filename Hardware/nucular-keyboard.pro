@@ -61,4 +61,4 @@ LibName29=valves
 LibName30=stm32
 LibName31=nxp
 LibName32=ir
-LibName33=_TkComponents
+LibName33=000-Components

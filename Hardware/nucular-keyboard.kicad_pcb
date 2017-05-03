@@ -250,7 +250,7 @@
     (add_net VCC)
   )
 
-  (module _TkModules:JAE_AA01B-S040VA1 (layer F.Cu) (tedit 5908F061) (tstamp 5909F61A)
+  (module 000-Modules:JAE_AA01B-S040VA1 (layer F.Cu) (tedit 5908F061) (tstamp 5909F61A)
     (at 90.75 79.5)
     (descr "40pin 0.5mm Receptable")
     (path /59093D6D)
@@ -356,14 +356,14 @@
       (net 2 GND))
     (pad 43 smd rect (at -6.25 2.3) (size 1.2 1) (layers F.Cu F.Paste F.Mask)
       (net 2 GND))
-    (model ${KIPRJMOD}/_TkModules.pretty/JAE_AA01B-S040VA1.wrl
+    (model ${KIPRJMOD}/000-Modules.pretty/JAE_AA01B-S040VA1.wrl
       (at (xyz 0 0 0))
       (scale (xyz 0.3937 0.3937 0.3937))
       (rotate (xyz 0 0 0))
     )
   )
 
-  (module _TkModules:JAE_KX14-40K2D (layer F.Cu) (tedit 5908F01F) (tstamp 5909F54E)
+  (module 000-Modules:JAE_KX14-40K2D (layer F.Cu) (tedit 5908F01F) (tstamp 5909F54E)
     (at 93.8 69.7)
     (descr "40pin 0.8mm Receptacle")
     (path /59093E51)
@@ -481,14 +481,14 @@
       (net 2 GND))
     (pad "" np_thru_hole circle (at -8.35 0) (size 0.9 0.9) (drill 0.9) (layers *.Cu *.Mask))
     (pad "" np_thru_hole circle (at 8.35 0) (size 0.9 0.9) (drill 0.9) (layers *.Cu *.Mask))
-    (model ${KIPRJMOD}/_TkModules.pretty/JAE_KX14-40K2D.wrl
+    (model ${KIPRJMOD}/000-Modules.pretty/JAE_KX14-40K2D.wrl
       (at (xyz 0 0 0))
       (scale (xyz 0.3937 0.3937 0.3937))
       (rotate (xyz 0 0 0))
     )
   )
 
-  (module _TkModules:SOT143B (layer F.Cu) (tedit 58FD00FF) (tstamp 5909F49D)
+  (module 000-Modules:SOT143B (layer F.Cu) (tedit 58FD00FF) (tstamp 5909F49D)
     (at 68.4 65.15 90)
     (descr SOT143B)
     (tags SOT143B)
@@ -529,7 +529,7 @@
     )
   )
 
-  (module _TkModules:Molex_105017-0001_USB-Micro-B (layer F.Cu) (tedit 5908EAAF) (tstamp 5909F4D6)
+  (module 000-Modules:Molex_105017-0001_USB-Micro-B (layer F.Cu) (tedit 5908EAAF) (tstamp 5909F4D6)
     (at 61.8 64.8 270)
     (descr http://www.molex.com/pdm_docs/sd/1050170001_sd.pdf)
     (tags "Micro-USB SMD Type-B")
@@ -595,14 +595,14 @@
       (net 2 GND))
     (pad 6 smd rect (at 1 0.35 270) (size 1.5 1.9) (layers F.Cu F.Paste F.Mask)
       (net 2 GND))
-    (model ${KIPRJMOD}/_TkModules.pretty/Molex_105017-0001_USB-Micro-B.wrl
+    (model ${KIPRJMOD}/000-Modules.pretty/Molex_105017-0001_USB-Micro-B.wrl
       (at (xyz 0 -0.005905511811023622 0.04921259842519685))
       (scale (xyz 0.3937 0.3937 0.3937))
       (rotate (xyz -90 0 0))
     )
   )
 
-  (module _TkModules:SOT89-3 (layer F.Cu) (tedit 5908EA14) (tstamp 5909F45B)
+  (module 000-Modules:SOT89-3 (layer F.Cu) (tedit 5908EA14) (tstamp 5909F45B)
     (at 63.1 74.04 90)
     (descr "SOT89-3, Housing,")
     (tags "SOT89-3 Housing ")
@@ -645,7 +645,7 @@
       (scale (xyz 0.39 0.39 0.39))
       (rotate (xyz 0 0 90))
     )
-    (model ${KIPRJMOD}/_TkModules.pretty/SOT89-3.wrl
+    (model ${KIPRJMOD}/000-Modules.pretty/SOT89-3.wrl
       (at (xyz 0.01968503937007874 0 0))
       (scale (xyz 0.3937 0.3937 0.3937))
       (rotate (xyz 0 0 90))

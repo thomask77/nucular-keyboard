@@ -72,7 +72,7 @@
   (pad 3 smd rect (at 6.8 2.55) (size 0.5 2.4) (layers F.Cu F.Paste F.Mask))
   (pad 2 smd rect (at 7.6 -2.55) (size 0.5 2.4) (layers F.Cu F.Paste F.Mask))
   (pad 1 smd rect (at 7.6 2.55) (size 0.5 2.4) (layers F.Cu F.Paste F.Mask))
-  (model ${KIPRJMOD}/_TkModules.pretty/JAE_KX14-40K2D.wrl
+  (model ${KIPRJMOD}/000-Modules.pretty/JAE_KX14-40K2D.wrl
     (at (xyz 0 0 0))
     (scale (xyz 0.3937 0.3937 0.3937))
     (rotate (xyz 0 0 0))

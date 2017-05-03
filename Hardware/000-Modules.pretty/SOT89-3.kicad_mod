@@ -34,7 +34,7 @@
     (scale (xyz 0.39 0.39 0.39))
     (rotate (xyz 0 0 90))
   )
-  (model ${KIPRJMOD}/_TkModules.pretty/SOT89-3.wrl
+  (model ${KIPRJMOD}/000-Modules.pretty/SOT89-3.wrl
     (at (xyz 0.01968503937007874 0 0))
     (scale (xyz 0.3937 0.3937 0.3937))
     (rotate (xyz 0 0 90))
